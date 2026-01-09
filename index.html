@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/RockRockRock/assets/index-qLDPrQJQ.js"></script>
-  <link rel="stylesheet" crossorigin href="/RockRockRock/assets/index-B-1gjIPP.css">
+  <script type="module" crossorigin src="/RockRockRock/assets/index-UdqKER8y.js"></script>
+  <link rel="stylesheet" crossorigin href="/RockRockRock/assets/index-BvJmAFRf.css">
 </head>
 
 <body>
@@ -36,6 +36,9 @@
         <div class="field-label">적의 패</div>
         <div id="enemy-cards" class="card-row"></div>
       </div>
+
+      <!-- 전투 로그 (패시브 발동 메시지) -->
+      <div id="battle-log"></div>
 
       <!-- 전투 결과 영역 -->
       <div id="battle-result" class="hidden">
@@ -129,6 +132,15 @@
           <span class="stat-label">가위</span>
           <span id="stat-scissors" class="stat-count">0</span>
         </div>
+      </div>
+    </div>
+
+    <!-- 분기 선택 모달 -->
+    <div id="branch-modal" class="modal hidden">
+      <div class="modal-content branch-content">
+        <h2>🚪 갈림길</h2>
+        <p class="branch-desc">다음 라운드의 방향을 선택하세요</p>
+        <div id="branch-options" class="branch-options"></div>
       </div>
     </div>
   </div>
