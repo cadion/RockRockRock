@@ -1,0 +1,169 @@
+{
+    "rounds": {
+        "1": {
+            "passives": []
+        },
+        "4": {
+            "passives": [
+                "redMatch",
+                "blueMatch",
+                "bigHand",
+                "smallDeck"
+            ]
+        },
+        "7": {
+            "gimmicks": [
+                "fourCards",
+                "twoCards"
+            ],
+            "passives": [
+                "thirdReverse",
+                "redRush",
+                "flexibility"
+            ]
+        },
+        "10": {
+            "boss": [
+                "guardian"
+            ],
+            "gimmicks": [
+                "fog",
+                "mimic",
+                "greenOnly"
+            ],
+            "passives": [
+                "recycle",
+                "joker",
+                "bigHand"
+            ]
+        },
+        "14": {
+            "gimmicks": [
+                "corrosion",
+                "overload",
+                "scissorsOnly"
+            ],
+            "passives": [
+                "smallDeck",
+                "redMatch",
+                "blueMatch"
+            ]
+        },
+        "17": {
+            "gimmicks": [
+                "reversal",
+                "purpleAcquire",
+                "scissorsAcquire"
+            ],
+            "passives": [
+                "joker",
+                "thirdReverse",
+                "flexibility"
+            ]
+        },
+        "20": {
+            "boss": [
+                "chaos",
+                "guardian"
+            ],
+            "gimmicks": [
+                "CLEAR"
+            ],
+            "passives": [
+                "recycle",
+                "flexibility",
+                "thirdReverse"
+            ]
+        },
+        "24": {
+            "gimmicks": [
+                "overload",
+                "reversal"
+            ],
+            "passives": [
+                "bigHand",
+                "smallDeck",
+                "recycle"
+            ]
+        },
+        "27": {
+            "gimmicks": [
+                "fog",
+                "corrosion",
+                "mimic"
+            ],
+            "passives": [
+                "joker",
+                "redRush",
+                "flexibility"
+            ]
+        },
+        "30": {
+            "boss": [
+                "mirror",
+                "chaos",
+                "guardian"
+            ],
+            "passives": [
+                "joker",
+                "bigHand",
+                "smallDeck",
+                "recycle"
+            ]
+        },
+        "34": {
+            "gimmicks": [
+                "overload",
+                "reversal",
+                "purpleAcquire"
+            ],
+            "passives": [
+                "thirdReverse",
+                "redMatch",
+                "blueMatch"
+            ]
+        },
+        "37": {
+            "gimmicks": [
+                "scissorsAcquire",
+                "greenOnly",
+                "fog"
+            ],
+            "passives": [
+                "recycle",
+                "flexibility",
+                "bigHand"
+            ]
+        },
+        "40": {
+            "boss": [
+                "mirror",
+                "chaos"
+            ],
+            "passives": [
+                "joker",
+                "smallDeck",
+                "redRush"
+            ]
+        }
+    },
+    "defaults": {
+        "gimmicks": [
+            "fourCards",
+            "twoCards",
+            "fog",
+            "mimic"
+        ],
+        "passives": [
+            "redMatch",
+            "blueMatch",
+            "thirdReverse",
+            "redRush",
+            "flexibility",
+            "recycle",
+            "joker",
+            "bigHand",
+            "smallDeck"
+        ]
+    }
+}
