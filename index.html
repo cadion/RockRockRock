@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/RockRockRock/assets/index-UewffL0E.js"></script>
-  <link rel="stylesheet" crossorigin href="/RockRockRock/assets/index-CewD95aE.css">
+  <script type="module" crossorigin src="/RockRockRock/assets/index-QIaZKueX.js"></script>
+  <link rel="stylesheet" crossorigin href="/RockRockRock/assets/index-BvJmAFRf.css">
 </head>
 
 <body>
@@ -20,13 +20,7 @@
       <!-- 상단 정보 바 -->
       <div id="info-bar">
         <div class="round-info">라운드 <span id="round-num">1</span></div>
-        <div class="shape-counts">
-          <span class="shape-count" id="scissors-count" title="가위">✌️<span>0</span></span>
-          <span class="shape-count" id="rock-count" title="바위">✊<span>0</span></span>
-          <span class="shape-count" id="paper-count" title="보">✋<span>0</span></span>
-        </div>
         <div class="deck-info">덱: <span id="deck-count">15</span>장</div>
-        <div class="best-info">최고: <span>-</span></div>
       </div>
 
       <!-- 기믹 영역 -->
@@ -124,11 +118,6 @@
       <div id="deck-card-list" class="overlay-card-grid"></div>
       <div id="deck-stats" class="deck-stats">
         <div class="stat-item">
-          <span class="stat-icon">✌️</span>
-          <span class="stat-label">가위</span>
-          <span id="stat-scissors" class="stat-count">0</span>
-        </div>
-        <div class="stat-item">
           <span class="stat-icon">✊</span>
           <span class="stat-label">바위</span>
           <span id="stat-rock" class="stat-count">0</span>
@@ -138,12 +127,23 @@
           <span class="stat-label">보</span>
           <span id="stat-paper" class="stat-count">0</span>
         </div>
+        <div class="stat-item">
+          <span class="stat-icon">✌️</span>
+          <span class="stat-label">가위</span>
+          <span id="stat-scissors" class="stat-count">0</span>
+        </div>
       </div>
     </div>
 
+    <!-- 분기 선택 모달 -->
+    <div id="branch-modal" class="modal hidden">
+      <div class="modal-content branch-content">
+        <h2>🚪 갈림길</h2>
+        <p class="branch-desc">다음 라운드의 방향을 선택하세요</p>
+        <div id="branch-options" class="branch-options"></div>
+      </div>
+    </div>
   </div>
-  <!-- 파티클 효과용 (Confetti) -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </body>
 
 </html>
