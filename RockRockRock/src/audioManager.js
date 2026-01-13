@@ -40,6 +40,11 @@ class AudioManager {
             this.bgm.muted = mute;
         }
     }
+
+    toggleMute() {
+        this.setMute(!this.isMuted);
+        return this.isMuted;
+    }
 }
 
 export const audioManager = new AudioManager();

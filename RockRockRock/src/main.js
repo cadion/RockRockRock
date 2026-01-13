@@ -450,6 +450,12 @@ document.addEventListener('DOMContentLoaded', () => {
     audioManager.playSFX('cardSelect');
     showDeckOverlay();
   });
+
+  // BGM 토글 버튼 이벤트
+  DOM.bgmToggleBtn().addEventListener('click', () => {
+    const isMuted = audioManager.toggleMute();
+    DOM.bgmToggleBtn().textContent = isMuted ? '🔇' : '🔊';
+  });
   DOM.deckCloseBtn().addEventListener('click', () => {
     audioManager.playSFX('cardSelect');
     hideDeckOverlay();

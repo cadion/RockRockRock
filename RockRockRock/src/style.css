@@ -1,4 +1,4 @@
-/* ===== 기본 설정 ===== */
+﻿/* ===== 기본 설정 ===== */
 :root {
   /* 카드 색상 */
   --color-blue: #3498db;
@@ -84,6 +84,32 @@ body {
   font-weight: 700;
   color: var(--text-primary);
 }
+
+
+/* BGM 토글 버튼 */
+#bgm-toggle {
+  margin-left: 8px;
+  padding: 6px 10px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+#bgm-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+#bgm-toggle:active {
+  transform: scale(0.95);
+}
+
 
 /* 가위바위보 개수 표시 */
 .shape-counts {
@@ -1150,7 +1176,7 @@ body {
       inset 0 0 15px rgba(255, 215, 0, 0.4);
   }
 }
-/* ===== ȿ�� �ִϸ��̼� ===== */
+/* ===== ȿ�� �ִϸ��̼� ===== */
 
 .shake {
   animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;

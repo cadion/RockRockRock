@@ -30,36 +30,45 @@ export const DOM = {
     eventPassives: () => $('#event-passives'),
     eventSkipBtn: () => $('#event-skip-btn'),
 
-    gameoverModal: () => $('#gameover-modal'),
     gameoverTitle: () => $('#gameover-title'),
     gameoverText: () => $('#gameover-text'),
     restartBtn: () => $('#restart-btn'),
 
-    gimmickModal: () => $('#gimmick-modal'),
     gimmickAnnounceText: () => $('#gimmick-announce-text'),
     gimmickOkBtn: () => $('#gimmick-ok-btn'),
 
     // 덱 보기
-    deckViewBtn: () => $('#deck-view-btn'),
-    deckOverlay: () => $('#deck-overlay'),
     deckTotalCount: () => $('#deck-total-count'),
     deckCardList: () => $('#deck-card-list'),
-    deckCloseBtn: () => $('#deck-close-btn'),
 
     // 덱 통계
     statRock: () => $('#stat-rock'),
     statPaper: () => $('#stat-paper'),
     statScissors: () => $('#stat-scissors'),
 
-    // 획득 모달 덱 버튼
-    acquireDeckBtn: () => $('#acquire-deck-btn'),
-
     // 전투 로그
     battleLog: () => $('#battle-log'),
 
     // 분기 선택 모달
     branchModal: () => $('#branch-modal'),
-    branchOptions: () => $('#branch-options')
+    branchOptions: () => $('#branch-options'),
+
+    // Modals
+    acquireModal: () => $('#acquire-modal'),
+    eventModal: () => $('#event-modal'),
+    gameoverModal: () => $('#gameover-modal'),
+    gimmickModal: () => $('#gimmick-modal'),
+
+    // Buttons
+    actionBtn: () => $('#action-btn'),
+    deckViewBtn: () => $('#deck-view-btn'),
+    deckCloseBtn: () => $('#deck-close-btn'),
+    acquireDeckBtn: () => $('#acquire-deck-btn'),
+    acquireBtn: () => $('#acquire-btn'), // Moved from acquire modal section
+    bgmToggleBtn: () => $('#bgm-toggle'),
+
+    // Overlays
+    deckOverlay: () => $('#deck-overlay'),
 };
 
 // 전투 로그 메시지 표시
