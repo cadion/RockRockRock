@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/RockRockRock/assets/index-v9dkWwCu.js"></script>
-  <link rel="stylesheet" crossorigin href="/RockRockRock/assets/index-BaX8f5jJ.css">
+  <script type="module" crossorigin src="/RockRockRock/assets/index-C31mqV5N.js"></script>
+  <link rel="stylesheet" crossorigin href="/RockRockRock/assets/index-oX_x90k7.css">
 </head>
 
 <body>
@@ -34,6 +34,17 @@
 
       <!-- 기믹 영역 -->
       <div id="gimmick-area">
+        <!-- 보스 HP 바 -->
+        <div id="boss-hp-container" class="hidden">
+          <div class="boss-info">
+            <span id="boss-name"></span>
+            <span id="boss-hp-text">HP: <span id="boss-hp-current">0</span>/<span id="boss-hp-max">0</span></span>
+          </div>
+          <div class="boss-hp-bar">
+            <div id="boss-hp-fill" class="hp-fill"></div>
+          </div>
+        </div>
+
         <div id="gimmick-display" class="hidden">
           <span class="gimmick-label">⚠️ 기믹</span>
           <span id="gimmick-text"></span>
@@ -146,7 +157,7 @@
 
   </div>
   <!-- 파티클 효과용 (Confetti) -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </body>
 
 </html>
