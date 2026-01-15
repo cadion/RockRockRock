@@ -96,14 +96,14 @@ export const PASSIVES = {
         id: 'smallDeck',
         name: '압축',
         icon: '📦',
-        desc: '덱 크기가 1 감소합니다',
+        desc: '덱 크기가 2 감소합니다',
         color: '#e67e22',
         tier: 1,
         onApply: (state) => {
-            state.deckSize -= 1;
+            state.deckSize -= 2;
         },
         onRemove: (state) => {
-            state.deckSize += 1;
+            state.deckSize += 2;
         }
     },
     whiteStabilize: {
@@ -444,6 +444,7 @@ export const BOSSES = {
         cardCount: 6,
         hp: 15,
         maxTurns: 5, // 5턴 이내에 제압해야 함
+        playerHandBonus: 1, // 플레이어 핸드 +1
         bgColor: '#1a0a0a',
         reward: 'rare_passive'
     },

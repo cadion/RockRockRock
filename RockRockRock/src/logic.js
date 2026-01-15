@@ -119,12 +119,18 @@ export function drawHand() {
 
     const gimmick = gameState.currentGimmick;
     const passives = gameState.passives;
+    const boss = gameState.currentBoss;
 
     // 덱 크기 = gameState.deckSize (라이프사이클 훅으로 관리됨)
     const currentDeckSize = gameState.deckSize;
 
     // 핸드 크기 보너스
     let handBonus = passives.reduce((sum, p) => sum + (p.handSizeBonus || 0), 0);
+
+    // 보스 핸드 보너스
+    if (boss && boss.playerHandBonus) {
+        handBonus += boss.playerHandBonus;
+    }
 
     // perfectCycle 패시브: 덱의 가위,바위,보 비율이 동일하면 핸드 +1
     if (passives.some(p => p.id === 'perfectCycle')) {
