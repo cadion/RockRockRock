@@ -69,6 +69,13 @@ export const DOM = {
 
     // Overlays
     deckOverlay: () => $('#deck-overlay'),
+
+    // 보스 HP
+    bossHpContainer: () => $('#boss-hp-container'),
+    bossName: () => $('#boss-name'),
+    bossHpCurrent: () => $('#boss-hp-current'),
+    bossHpMax: () => $('#boss-hp-max'),
+    bossHpFill: () => $('#boss-hp-fill'),
 };
 
 // 전투 로그 메시지 표시
@@ -186,6 +193,27 @@ export function updateGimmickDisplay() {
     }
 }
 
+// 보스 HP 바 업데이트
+export function updateBossHPBar() {
+    const container = DOM.bossHpContainer();
+    const bossNameEl = DOM.bossName();
+    const currentHpEl = DOM.bossHpCurrent();
+    const maxHpEl = DOM.bossHpMax();
+    const fillEl = DOM.bossHpFill();
+
+    if (gameState.currentBoss && gameState.maxBossHealth > 0) {
+        container.classList.remove('hidden');
+        bossNameEl.textContent = gameState.currentBoss.name;
+        currentHpEl.textContent = Math.max(0, gameState.currentBossHealth);
+        maxHpEl.textContent = gameState.maxBossHealth;
+
+        const hpPercentage = Math.max(0, (gameState.currentBossHealth / gameState.maxBossHealth) * 100);
+        fillEl.style.width = `${hpPercentage}%`;
+    } else {
+        container.classList.add('hidden');
+    }
+}
+
 // 카드 HTML 생성
 export function createCardHTML(card, options = {}) {
     const {
@@ -203,7 +231,6 @@ export function createCardHTML(card, options = {}) {
     if (isPlaced) classes.push('placed');
     if (isSelected) classes.push('selected');
     if (card.hidden) classes.push('hidden-card');
-    if (card.special) classes.push(`special-${card.special}`);
 
     let resultBadge = '';
     if (showResult && result !== null) {
@@ -218,14 +245,6 @@ export function createCardHTML(card, options = {}) {
         slotBadge = `<div class="slot-badge">${slotNumber}</div>`;
     }
 
-    // 특수 카드 뱃지
-    let specialBadge = '';
-    if (card.special === 'gold') {
-        specialBadge = '<div class="special-badge gold">✨</div>';
-    } else if (card.special === 'cursed') {
-        specialBadge = '<div class="special-badge cursed">💀</div>';
-    }
-
     const shapeIcon = card.hidden ? '?' : SHAPE_ICONS[card.shape];
 
     return `
@@ -233,7 +252,6 @@ export function createCardHTML(card, options = {}) {
       <span class="shape">${shapeIcon}</span>
       ${resultBadge}
       ${slotBadge}
-      ${specialBadge}
     </div>
   `;
 }
@@ -359,7 +377,6 @@ export function quickUpdateSelectionUI() {
             if (el.classList.contains('card-slot')) {
                 const cardEl = document.createElement('div');
                 cardEl.className = `card ${card.color} placed`;
-                if (card.special) cardEl.classList.add(`special-${card.special}`);
                 cardEl.dataset.id = card.id;
 
                 // 승패 미리보기

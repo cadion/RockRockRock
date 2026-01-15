@@ -16,8 +16,22 @@ export function generateEnemyCards() {
     let count = 3;
 
     // 보스에 따른 카드 수 변경
-    if (boss && boss.cardCount) {
-        count = boss.cardCount;
+    if (boss) {
+        if (boss.dynamicCards) {
+            // Chaos 보스: 체력이 떨어질수록 카드 수 증가
+            const hpRatio = gameState.currentBossHealth / gameState.maxBossHealth;
+            if (hpRatio <= 0.5) {
+                count = boss.baseCardCount + 2; // 50% 이하: +2
+            } else if (hpRatio <= 0.75) {
+                count = boss.baseCardCount + 1; // 75% 이하: +1
+            } else {
+                count = boss.baseCardCount; // 기본
+            }
+        } else if (boss.cardCount) {
+            count = boss.cardCount;
+        } else if (boss.baseCardCount) {
+            count = boss.baseCardCount;
+        }
     }
     // 기믹에 따른 카드 수 변경
     else if (gimmick && gimmick.enemyCardCount) {
@@ -522,20 +536,10 @@ export function generateAcquisitionCards(count) {
         const color = colors[Math.floor(Math.random() * colors.length)];
         const shape = shapes[Math.floor(Math.random() * shapes.length)];
 
-        // 특수 카드 확률 (10% 골드, 5% 저주)
-        let special = null;
-        const rand = Math.random();
-        if (rand < 0.05) {
-            special = 'cursed';
-        } else if (rand < 0.15) {
-            special = 'gold';
-        }
-
         cards.push({
             color,
             shape,
-            id: `acq-${i}-${Date.now()}-${Math.random()}`,
-            special
+            id: `acq-${i}-${Date.now()}-${Math.random()}`
         });
     }
 

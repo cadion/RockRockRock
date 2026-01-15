@@ -34,6 +34,9 @@ export const gameState = {
     passives: [],
     currentGimmick: null,
     currentBoss: null, // 현재 보스 (10라운드마다)
+    currentBossHealth: 0, // 현재 보스 체력
+    maxBossHealth: 0, // 최대 보스 체력
+    bossTurnCount: 0, // 보스전 턴 카운트
     deckSize: 15, // 덱 최대 크기 (핸드 드로우 기준)
     previousShapes: [], // Echo 기믹용
 
@@ -61,6 +64,9 @@ export const gameState = {
         this.passives = [];
         this.currentGimmick = null;
         this.currentBoss = null;
+        this.currentBossHealth = 0;
+        this.maxBossHealth = 0;
+        this.bossTurnCount = 0;
         this.deckSize = 15;
         this.previousShapes = [];
         this.enemyCards = [];
@@ -434,29 +440,35 @@ export const BOSSES = {
     guardian: {
         id: 'guardian',
         name: '수호자',
-        desc: '6장의 카드로 당신을 압박합니다',
+        desc: '6장의 카드로 당신을 압박합니다. 5턴 이내에 제압하지 못하면 패배합니다.',
         cardCount: 6,
+        hp: 15,
+        maxTurns: 5, // 5턴 이내에 제압해야 함
         bgColor: '#1a0a0a',
         reward: 'rare_passive'
     },
     chaos: {
         id: 'chaos',
         name: '혼돈의 군주',
-        desc: '7장의 카드와 예측 불가능한 패턴',
-        cardCount: 7,
+        desc: '채력이 떨어질수록 취급하는 카드가 늘어납니다.',
+        baseCardCount: 5, // 기본 카드 수
+        hp: 20,
+        dynamicCards: true, // 체력에 비례하여 카드 수 증가
         bgColor: '#0a0a1a',
         reward: 'deck_purge'
     },
     mirror: {
         id: 'mirror',
         name: '거울의 마녀',
-        desc: '당신의 모양을 그대로 따라합니다',
+        desc: '당신의 모양을 그대로 따라합니다.',
         cardCount: 5,
+        hp: 12,
         mimicAll: true,
         bgColor: '#0a1a0a',
         reward: 'rare_passive'
     }
 };
+
 
 // 무작위 보스 1개 선택
 export function getRandomBoss() {

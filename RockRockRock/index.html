@@ -32,6 +32,17 @@
 
       <!-- 기믹 영역 -->
       <div id="gimmick-area">
+        <!-- 보스 HP 바 -->
+        <div id="boss-hp-container" class="hidden">
+          <div class="boss-info">
+            <span id="boss-name"></span>
+            <span id="boss-hp-text">HP: <span id="boss-hp-current">0</span>/<span id="boss-hp-max">0</span></span>
+          </div>
+          <div class="boss-hp-bar">
+            <div id="boss-hp-fill" class="hp-fill"></div>
+          </div>
+        </div>
+
         <div id="gimmick-display" class="hidden">
           <span class="gimmick-label">⚠️ 기믹</span>
           <span id="gimmick-text"></span>

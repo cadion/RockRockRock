@@ -13,6 +13,7 @@ import {
 import {
   updateInfoBar,
   updateGimmickDisplay,
+  updateBossHPBar,
   renderEnemyCards,
   renderPlayerField,
   renderHand,
@@ -103,6 +104,9 @@ function startRound() {
     const bossId = roundData.boss[Math.floor(Math.random() * roundData.boss.length)];
     if (BOSSES[bossId]) {
       gameState.currentBoss = BOSSES[bossId];
+      gameState.currentBossHealth = BOSSES[bossId].hp;
+      gameState.maxBossHealth = BOSSES[bossId].hp;
+      gameState.bossTurnCount = 0;
       gameState.currentGimmick = null; // 보스전에는 기믹 없음
 
       // 보스 등장 알림
@@ -182,6 +186,7 @@ function setupBattlePhase() {
   // UI 업데이트
   updateInfoBar();
   updateGimmickDisplay();
+  updateBossHPBar();
   renderEnemyCards();
   renderPlayerField(onFieldCardClick);
   renderHand(onHandCardClick);
@@ -289,6 +294,23 @@ async function onSubmit() {
   // 결과 표시
   showBattleResult(battleResult, async () => {
     if (battleResult.isVictory) {
+      // 보스전인 경우 HP 차감
+      if (gameState.currentBoss) {
+        gameState.currentBossHealth -= battleResult.totalWins;
+        gameState.bossTurnCount++;
+
+        // Guardian 보스: 턴 제한 찄크
+        if (gameState.currentBoss.maxTurns && gameState.bossTurnCount >= gameState.currentBoss.maxTurns) {
+          if (gameState.currentBossHealth > 0) {
+            // 턴 제한 초과 시 패배
+            persistenceManager.updateStatsOnGameOver(gameState.round, false);
+            persistenceManager.clearGameState();
+            showGameoverModal(false, `${gameState.currentBoss.name}을(를) ${gameState.currentBoss.maxTurns}턴 이내에 처치하지 못했습니다.`, initGame);
+            return;
+          }
+        }
+      }
+
       if (isReversed) {
         // 역전의 대가: 필드 카드가 불타서 재가 됨
         await burnFieldCards();
@@ -300,11 +322,40 @@ async function onSubmit() {
       // 카드 처리 (로직)
       const lostCount = processEndOfRound(battleResult);
 
-      // 다음 페이즈로
-      if (lostCount > 0) {
-        startAcquirePhase(lostCount);
-      } else {
-        nextRound();
+      // 보스 HP가 0 이하면 보스 처치
+      if (gameState.currentBoss && gameState.currentBossHealth <= 0) {
+        showLogMessage(`🎆 ${gameState.currentBoss.name}을(를) 처치했습니다!`, 'victory');
+        gameState.currentBoss = null;
+        gameState.currentBossHealth = 0;
+        gameState.maxBossHealth = 0;
+        gameState.bossTurnCount = 0;
+        document.body.style.background = ''; // 배경색 복원
+
+        // 보스 처치 후 다음 라운드
+        if (lostCount > 0) {
+          startAcquirePhase(lostCount);
+        } else {
+          nextRound();
+        }
+      }
+      // 보스 HP가 남아있으면 다음 턴
+      else if (gameState.currentBoss) {
+        showLogMessage(`⚔️ 보스 HP: ${gameState.currentBossHealth}/${gameState.maxBossHealth}`, 'info');
+
+        // 카드 획듍 후 다음 턴 시작
+        if (lostCount > 0) {
+          startAcquirePhase(lostCount, true); // 보스전 중간 획듍
+        } else {
+          setupBattlePhase(); // 바로 다음 턴
+        }
+      }
+      // 일반 전투
+      else {
+        if (lostCount > 0) {
+          startAcquirePhase(lostCount);
+        } else {
+          nextRound();
+        }
       }
     } else {
       // 패배
@@ -316,7 +367,7 @@ async function onSubmit() {
 }
 
 // ===== 카드 획득 페이즈 =====
-function startAcquirePhase(lostCount) {
+function startAcquirePhase(lostCount, isBossBattle = false) {
   gameState.phase = 'acquire';
 
   // 현재 덱 크기 (라이프사이클 훅으로 관리됨)
@@ -333,7 +384,7 @@ function startAcquirePhase(lostCount) {
 
   if (acquireCount <= 0) {
     // 획득할 필요 없음
-    afterAcquirePhase();
+    afterAcquirePhase(isBossBattle);
     return;
   }
 
@@ -345,17 +396,17 @@ function startAcquirePhase(lostCount) {
     showAcquireModal(options, acquireCount, (selected) => {
       gameState.deck.push(...selected);
       gameState.deck = shuffle(gameState.deck);
-      afterAcquirePhase();
+      afterAcquirePhase(isBossBattle);
     });
   } else {
     // 반복 획득
-    acquireMultiple(acquireCount);
+    acquireMultiple(acquireCount, isBossBattle);
   }
 }
 
-function acquireMultiple(remaining) {
+function acquireMultiple(remaining, isBossBattle = false) {
   if (remaining <= 0) {
-    afterAcquirePhase();
+    afterAcquirePhase(isBossBattle);
     return;
   }
 
@@ -365,14 +416,20 @@ function acquireMultiple(remaining) {
   showAcquireModal(options, selectCount, (selected) => {
     gameState.deck.push(...selected);
     gameState.deck = shuffle(gameState.deck);
-    acquireMultiple(remaining - selectCount);
+    acquireMultiple(remaining - selectCount, isBossBattle);
   });
 }
 
 // ===== 카드 획득 후 다음 라운드 =====
-function afterAcquirePhase() {
+function afterAcquirePhase(isBossBattle = false) {
   persistenceManager.saveGameState(gameState);
-  nextRound();
+
+  // 보스전 중이면 다음 턴 시작
+  if (isBossBattle) {
+    setupBattlePhase();
+  } else {
+    nextRound();
+  }
 }
 
 // 패시브 선택 처리 공통 로직
